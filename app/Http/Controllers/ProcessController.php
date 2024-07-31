@@ -19,18 +19,7 @@ class ProcessController extends Controller
 
 
         $registro = [];
-        
-        //leer
-       
-       // $registros = Register::all();
-
-       
-
-        //insertar
-
-        DB::setDefaultConnection("mariadb");
-
-     
+      
         $registro['nombres_y_apellidos'] = $request->nombres_y_apellidos;
         $registro['codigo_c'] = $request->codigo_c;
         if ($request->hasFile('subir_video')) {
@@ -41,8 +30,9 @@ class ProcessController extends Controller
         $registro['acepto_los_terminos_y_condiciones'] = $request->acepto_los_terminos_y_condiciones;
         $registro['autorizo_el_tratamiento_de_mis_datos_personales_e_imagen'] = $request->autorizo_el_tratamiento_de_mis_datos_personales_e_imagen;
 
-        DB::table("registers")->insert($registro);
+       // DB::table("registers")->insert($registro);
      
+        Register::create($registro);
 
         DB::setDefaultConnection("mysql");
 
