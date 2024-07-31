@@ -24,7 +24,7 @@ class ProcessController extends Controller
         $registro['codigo_c'] = $request->codigo_c;
         if ($request->hasFile('subir_video')) {
             $video = Storage::disk('public')->putFile('uploads', $request->file('subir_video'));
-            $registro['subir_video']= $video;
+            $registro['subir_video']= env('HOST_HUESPED').$video;
         }
         $registro['ciudad_donde_trabajas'] = $request->ciudad_donde_trabajas;
         $registro['acepto_los_terminos_y_condiciones'] = $request->acepto_los_terminos_y_condiciones;
