@@ -17,7 +17,7 @@ class ProcessController extends Controller
     }
     public function registro(Request $request){
 
-
+        dd($request);
         $registro = [];
       
         $registro['nombres_y_apellidos'] = $request->nombres_y_apellidos;
