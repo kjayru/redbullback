@@ -28,11 +28,9 @@ class ProcessController extends Controller
 
         //insertar
 
-       // DB::setDefaultConnection("mysql");
+        DB::setDefaultConnection("mariadb");
 
-       // DB::table('carros_locos_233')->truncate();
-
-        // foreach($registros  as $row){
+     
         $registro['nombres_y_apellidos'] = $request->nombres_y_apellidos;
         $registro['codigo_c'] = $request->codigo_c;
         if ($request->hasFile('subir_video')) {
@@ -44,7 +42,7 @@ class ProcessController extends Controller
         $registro['autorizo_el_tratamiento_de_mis_datos_personales_e_imagen'] = $request->autorizo_el_tratamiento_de_mis_datos_personales_e_imagen;
 
         DB::table("registers")->insert($registro);
-        // }
+     
 
         DB::setDefaultConnection("mysql");
 
