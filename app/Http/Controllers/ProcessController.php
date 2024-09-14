@@ -51,11 +51,12 @@ class ProcessController extends Controller
 
         $registro['nombres_y_apellidos'] = $request->nombres_y_apellidos;
         $registro['codigo_c'] = $request->codigo_c;
-        if ($request->hasFile('subir_video')) {
-            $video = Storage::disk('public')->putFile('uploads', $request->file('subir_video'));
-            $registro['subir_video']= env('HOST_HUESPED').$video;
+        if ($request->hasFile('subir_imagen')) {
+            $video = Storage::disk('public')->putFile('uploads', $request->file('subir_imagen'));
+            $registro['subir_imagen']= env('HOST_HUESPED').$video;
         }
         $registro['ciudad_donde_trabajas'] = $request->ciudad_donde_trabajas;
+        $registro['region_donde_trabajas'] = $request->region_donde_trabajas;
         $registro['acepto_los_terminos_y_condiciones'] = $request->acepto_los_terminos_y_condiciones;
         $registro['autorizo_el_tratamiento_de_mis_datos_personales_e_imagen'] = $request->autorizo_el_tratamiento_de_mis_datos_personales_e_imagen;
         $registro['created_at']= Carbon::now();
@@ -69,9 +70,9 @@ class ProcessController extends Controller
 
         $registro2['nombres_y_apellidos'] = $request->nombres_y_apellidos;
         $registro2['codigo_c'] = $request->codigo_c;
-        if ($request->hasFile('subir_video')) {
-            $video = Storage::disk('public')->putFile('uploads', $request->file('subir_video'));
-            $registro2['subir_video']= env('HOST_HUESPED').$video;
+        if ($request->hasFile('subir_imagen')) {
+            $video = Storage::disk('public')->putFile('uploads', $request->file('subir_imagen'));
+            $registro['subir_imagen']= env('HOST_HUESPED').$video;
         }
         $registro2['ciudad_donde_trabajas'] = $request->ciudad_donde_trabajas;
         $registro2['acepto_los_terminos_y_condiciones'] = $request->acepto_los_terminos_y_condiciones;
