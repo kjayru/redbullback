@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Register;
+use App\Models\Registro;
 use GuzzleHttp\Client;
 use App\Models\CarrosLocos;
 use Carbon\Carbon;
