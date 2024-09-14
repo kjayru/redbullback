@@ -63,7 +63,7 @@ class ProcessController extends Controller
         $registro['updated_at']= Carbon::now();
        // DB::table("registers")->insert($registro);
 
-        $datos = Register::create($registro);
+        $datos = Registro::create($registro);
 
         DB::setDefaultConnection("mysql");
 
@@ -78,7 +78,7 @@ class ProcessController extends Controller
         $registro2['created_at']= $datos->created_at;
         $registro2['updated_at']= $datos->updated_at;
 
-        DB::table("carros_locos_233")->insert($registro2);
+        DB::table("carros_locos_boceto_claro_245")->insert($registro2);
 
        return response()->json(['success'=>200]);
     }
