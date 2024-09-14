@@ -21,30 +21,30 @@ class ProcessController extends Controller
 
     public function registro(Request $request){
 
-        $request->validate([
-            'g-recaptcha-response' => 'required',
-        ]);
+        // $request->validate([
+        //     'g-recaptcha-response' => 'required',
+        // ]);
 
-        // Verificar la puntuación del reCAPTCHA
-        $client = new Client();
-        $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
-            'form_params' => [
-                'secret' => env('CAPTCHA_SECRET'),
-                'response' => $request->input('g-recaptcha-response'),
-            ],
-        ]);
 
-        $body = json_decode((string)$response->getBody());
+        // $client = new Client();
+        // $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
+        //     'form_params' => [
+        //         'secret' => env('CAPTCHA_SECRET'),
+        //         'response' => $request->input('g-recaptcha-response'),
+        //     ],
+        // ]);
 
-        // Asegurarse de que la respuesta contiene 'success' y 'score'
-        if (!isset($body->success) || !$body->success || !isset($body->score)) {
-            return response()->json(['error' => 'La verificación de reCAPTCHA falló.'], 400);
-        }
+        // $body = json_decode((string)$response->getBody());
 
-        // Asegurarse de que la puntuación sea mayor a 0.7 (ajustando al rango 0.0 a 1.0 de reCAPTCHA v3)
-        if ($body->score < 0.7) {
-            return response()->json(['error' => 'La puntuación de reCAPTCHA es insuficiente.'], 400);
-        }
+
+        // if (!isset($body->success) || !$body->success || !isset($body->score)) {
+        //     return response()->json(['error' => 'La verificación de reCAPTCHA falló.'], 400);
+        // }
+
+
+        // if ($body->score < 0.7) {
+        //     return response()->json(['error' => 'La puntuación de reCAPTCHA es insuficiente.'], 400);
+        // }
 
         $registro = [];
         $registro2 = [];
@@ -52,8 +52,8 @@ class ProcessController extends Controller
         $registro['nombres_y_apellidos'] = $request->nombres_y_apellidos;
         $registro['codigo_c'] = $request->codigo_c;
         if ($request->hasFile('subir_imagen')) {
-            $video = Storage::disk('public')->putFile('uploads', $request->file('subir_imagen'));
-            $registro['subir_imagen']= env('HOST_HUESPED').$video;
+            $imagen = Storage::disk('public')->putFile('uploads', $request->file('subir_imagen'));
+            $registro['subir_imagen']= env('HOST_HUESPED').$imagen;
         }
         $registro['ciudad_donde_trabajas'] = $request->ciudad_donde_trabajas;
         $registro['region_donde_trabajas'] = $request->region_donde_trabajas;
@@ -70,11 +70,9 @@ class ProcessController extends Controller
 
         $registro2['nombres_y_apellidos'] = $request->nombres_y_apellidos;
         $registro2['codigo_c'] = $request->codigo_c;
-        if ($request->hasFile('subir_imagen')) {
-            $video = Storage::disk('public')->putFile('uploads', $request->file('subir_imagen'));
-            $registro['subir_imagen']= env('HOST_HUESPED').$video;
-        }
+        $registro2['subir_imagen']= $datos->subir_imagen;
         $registro2['ciudad_donde_trabajas'] = $request->ciudad_donde_trabajas;
+        $registro2['region_donde_trabajas'] = $request->region_donde_trabajas;
         $registro2['acepto_los_terminos_y_condiciones'] = $request->acepto_los_terminos_y_condiciones;
         $registro2['autorizo_el_tratamiento_de_mis_datos_personales_e_imagen'] = $request->autorizo_el_tratamiento_de_mis_datos_personales_e_imagen;
         $registro2['created_at']= $datos->created_at;
