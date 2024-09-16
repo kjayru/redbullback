@@ -7,6 +7,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Crypt;
 use App\Models\Register;
 use App\Models\Registro;
 use GuzzleHttp\Client;
@@ -79,8 +80,16 @@ class ProcessController extends Controller
         $registro2['created_at']= $datos->created_at;
         $registro2['updated_at']= $datos->updated_at;
 
-        DB::table("carros_locos_boceto_claro_245")->insert($registro2);
+      $guest_id = DB::table("carros_locos_boceto_claro_245")->insertGetId($registro2);
 
-       return response()->json(['success'=>200]);
+        $basepath = "https://www.claro.com.pe/gracias-crm";
+        $form_id = '245';
+
+        $cadena = $form_id."_".$guest_id;
+        $variable_de_envio =  Crypt::encryptString($cadena);
+        $path = $basepath."?op=".$variable_de_envio;
+
+
+       return response()->json(['success'=>200,'url_redirect'=>$path]);
     }
 }
